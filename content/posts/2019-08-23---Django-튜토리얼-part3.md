@@ -34,7 +34,7 @@ Flask는 필요한 부분을 하나씩 붙여나가며 만들어야하기 때문
 
 먼저 테스트 삼아 간단하게 request와 함께 question_id를 받아서 HttpResponse 객체를 반환하도록 해보자.
 
-```
+```python
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
 
@@ -48,7 +48,7 @@ def vote(request, question_id):
 
 그리고 polls.urls 모듈에 뷰와 연결될 path를 설정하자.
 
-```
+```python
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:question_id>/', views.detail, name='detail'),
@@ -68,7 +68,7 @@ urlpatterns = [
 path를 추가했으니 뷰를 조금 더 다듬어 보자.
 지금은 뷰가 단순히 받아온 정보만 출력하고 있으니 모델에서 실제 결과를 가져오게끔 바꿔보자.
 
-```
+```python
 from .models import Question
 
 def index(request):
@@ -90,7 +90,7 @@ polls/templates에 바로 템플릿을 넣지 않는 이유는 동일한 이름�
 이제 템플릿을 작성해보자.
 
 **polls/templates/polls/index.html**
-```
+```html
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -104,7 +104,7 @@ polls/templates에 바로 템플릿을 넣지 않는 이유는 동일한 이름�
 
 템플릿을 이용해서 뷰의 index 함수를 다시 개조해보자.
 
-```
+```python
 from django.template import loader
 
 def index(request):
@@ -119,7 +119,7 @@ def index(request):
 템플릿을 불러오고 템플릿에서 사용되는 변수명과 python 객체를 연결하기 위해 context를 만들어 전달했다. 하지만 더 간단한 방법이 있다.
 render 함수를 사용하면 된다.
 
-```
+```python
 from django.shortcuts import render
 
 def index(request):
@@ -144,7 +144,7 @@ render 함수는 request 객체를 첫번째로 받고, 템플릿, 그리고 con
 
 1. try / except 사용하기
 
-```
+```python
 from django.http import Http404
 # ...
 def detail(request, question_id):
@@ -156,7 +156,7 @@ def detail(request, question_id):
 ```
 
 2. get_object_or_404
-```
+```python
 from django.shortcuts import get_object_or_404, render
 #...
 def detail(request, question_id):
@@ -170,7 +170,7 @@ get_object_or_404는 장고 모델을 첫번째 인자로, 키워드 인자를 �
 
 이제 detail의 템플릿을 작성해보자.
 
-```
+```html
 <h1>{{ question.question_text }}</h1>
 <ul>
 {% for choice in question.choice_set.all %}
@@ -187,7 +187,7 @@ get_object_or_404는 장고 모델을 첫번째 인자로, 키워드 인자를 �
 
 polls/urls.py에서 설정해보자.
 
-```
+```python
 from django.urls import path
 
 from . import views
@@ -205,7 +205,7 @@ urlpatterns = [
 
 index.html 템플릿을 수정하자.
 
-```
+```html
 {% comment %} 원래 polls/templates/polls/index.html {% endcomment %}
 <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
 

@@ -38,7 +38,7 @@ SQLite를 사용할 것이라면 DATABASES 변경없이 진행하면 된다.
 
 settings.py에서 서울로 바꿔주었다.
 
-```
+```python
 TIME_ZONE = 'Asia/Seoul'
 ```
 
@@ -80,7 +80,7 @@ migration이 적용되었다.
 
 polls/models.py에 모델을 작성한다.
 
-```
+```python
 import datetime
 
 from django.db import models
@@ -122,7 +122,7 @@ ForeignKey를 조금 덧붙여 설명하면 위에서 작성한 모델은 one-to
 
 PollsConfig 클래스는 polls/apps.py에 있으므로 'polls.apps.PollsConfig'를 INSTALLED_APPS에 추가한다.
 
-```
+```python
 # Application definition
 
 INSTALLED_APPS = [
@@ -254,6 +254,8 @@ True
 먼저 관리자를 만들어야한다.
 
 ```
+$ python manage.py createsuperuser
+
 Username: admin
 Email address: admin@heaven.com
 Password: *****
@@ -280,7 +282,7 @@ http://127.0.0.1:8000/admin/으로 접속할 수 있다.
 
 polls/admin.py에서 Question 객체가 관리 인터페이스를 가지고 있다고 알려주면 된다.
 
-```
+```python
 from django.contrib import admin
 
 from .models import Question

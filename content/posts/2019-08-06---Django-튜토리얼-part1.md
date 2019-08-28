@@ -86,7 +86,7 @@ polls 라는 디렉토리가 생성되었다. 이제 뷰를 작성해보자.
 
 뷰를 만들기 위해 polls/views.py를 열고 코드를 작성하자.
 
-```
+```python
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -100,7 +100,7 @@ def index(request):
 
 polls/urls.py에 코드를 작성하자.
 
-```
+```python
 from django.urls import path
 
 from . import views
@@ -112,7 +112,7 @@ urlpatterns = [
 
 이제 최상위 URLconf에서 polls.urls 모듈을 바라보게 하기 위해 mysite/urls.py에 필요한 사항을 추가한다.
 
-```
+```python
 from django.contrib import admin
 from django.urls import include, path
 
