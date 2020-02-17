@@ -18,7 +18,7 @@ description: "python에서 상속할 때 사용하는 super()에 대해"
 
 ```python
 class LoggingDict(dict):
-    def __setitem(self, key, value):
+    def __setitem__(self, key, value):
       logging.info('Setting %r to %r' % (key, value))
       super().__setitem__(key, value)
       # better than
